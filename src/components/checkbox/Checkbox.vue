@@ -2,16 +2,16 @@
     <label
         class="b-checkbox checkbox"
         :class="[size, { 'is-disabled': disabled }]"
-        ref="label"
         :disabled="disabled"
         :tabindex="disabled ? false : 0"
-        @keydown.prevent.enter.space="$refs.label.click()">
+        @keydown.prevent.enter.space="$refs.input.click()">
         <input
             v-model="computedValue"
             tabindex="-1"
             :indeterminate.prop="indeterminate"
             type="checkbox"
-            @click.stop
+            ref="input"
+            v-on="$listeners"
             :disabled="disabled"
             :required="required"
             :name="name"

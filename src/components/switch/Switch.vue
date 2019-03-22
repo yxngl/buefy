@@ -2,10 +2,9 @@
     <label
         class="switch"
         :class="[size, { 'is-disabled': disabled }]"
-        ref="label"
         :disabled="disabled"
         :tabindex="disabled ? false : 0"
-        @keydown.prevent.enter.space="toggle"
+        @keydown.prevent.enter.space="$refs.input.click()"
         @mousedown="isMouseDown = true"
         @mouseup="isMouseDown = false"
         @mouseout="isMouseDown = false"
@@ -14,7 +13,8 @@
             v-model="computedValue"
             type="checkbox"
             tabindex="-1"
-            @click.stop
+            ref="input"
+            v-on="$listeners"
             :disabled="disabled"
             :name="name"
             :required="required"
@@ -69,15 +69,6 @@
              */
             value(value) {
                 this.newValue = value
-            }
-        },
-        methods: {
-            toggle() {
-                if (this.computedValue === this.trueValue) {
-                    this.computedValue = this.falseValue
-                } else {
-                    this.computedValue = this.trueValue
-                }
             }
         }
     }
